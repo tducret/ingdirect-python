@@ -7,10 +7,13 @@ Ce package permet de consulter très simplement ses comptes bancaires [ING Direc
 # Pré-requis
 
 - Python 3
+- pip3
 
 # Installation
 
-    $ pip3 install -U ingdirect
+```bash
+pip3 install -U ingdirect
+``
 
 # Utilisation
 
