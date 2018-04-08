@@ -27,7 +27,7 @@ import ingdirect as ing
     envvar="ING_CODE",
     type=str,
     help='votre mot de passe ING Direct (ex : 123456)',
-    prompt='votre mot de passe ING Directt (ex : 123456)'
+    prompt='votre mot de passe ING Direct (ex : 123456)'
 )
         
 def main(numero_client, date_naissance, code):
