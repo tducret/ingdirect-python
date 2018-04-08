@@ -13,7 +13,7 @@ Ce package permet de consulter très simplement ses comptes bancaires [ING Direc
 
 ```bash
 pip3 install -U ingdirect
-``
+```
 
 # Utilisation
 
