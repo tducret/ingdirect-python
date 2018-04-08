@@ -15,7 +15,43 @@ Ce package permet de consulter très simplement ses comptes bancaires [ING Direc
 pip3 install -U ingdirect
 ```
 
-# Utilisation
+# Utilisation via la commande en ligne `ing`
+
+Après installation, la commande `ing` est disponible dans le terminal.
+
+```bash
+ing
+```
+
+Après saisie des paramètres de connexion, la commande renverra le solde de chaque compte au format csv :
+
+```csv
+Nom du compte;Solde
+Compte Courant XXXX 1234;1500,5€
+Livret A XXXX 3456;10000,0€
+```
+
+Plus d'informations sur la commande, via :
+
+```bash
+ing --help
+```
+
+Les paramètres de connexion peuvent également être stockés dans des variables d'environnement.
+Par exemple :
+
+```bash
+export ING_NUM_CLIENT="1234567"
+```
+
+Variable d'environnement    | Description
+--------------------------- | ---------------------------------------
+ING_NUM_CLIENT              | Numéro de client ING Direct
+ING_DATE_NAISSANCE          | Date de naissance au format JJMMAAAA (ex: 30121982)
+ING_CODE                    | Mot de passe ING Direct (ex : 123456)
+
+
+# Utilisation via le package Python
 
 ```python
 # -*- coding: utf-8 -*-
