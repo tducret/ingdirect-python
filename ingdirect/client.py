@@ -112,8 +112,10 @@ class Client(object):
         
         #print("_REPERTOIRE_SCRIPT : %s" % _REPERTOIRE_SCRIPT)
         #chemin_image_keypad = os.path.join(_REPERTOIRE_SCRIPT,_FICHIER_KEYPAD)
-        img_rgb = cv.imread(_FICHIER_KEYPAD)
-        img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
+        if not hasattr(self, 'img_gray'): # On vérifie si l'image du keypad a déjà été récupérée
+            img_rgb = cv.imread(_FICHIER_KEYPAD)
+            self.img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
+            os.remove(_FICHIER_KEYPAD)
         
         #print("_FICHIER_KEYPAD : %s" % _FICHIER_KEYPAD)
 
@@ -126,7 +128,7 @@ class Client(object):
             #print("chemin_image_chiffre : %s" % chemin_image_chiffre)
             template = cv.imread(chemin_image_chiffre, 0)
             w, h = template.shape[::-1] # Taille de l'image du chiffre
-            res = cv.matchTemplate(img_gray,template,cv.TM_CCOEFF_NORMED)
+            res = cv.matchTemplate(self.img_gray,template,cv.TM_CCOEFF_NORMED)
             loc = np.where( res >= threshold)
             if len(loc[0]) >= 1 & len(loc[1]) >= 1:
               retour = [(loc[1][0]+w/2), (loc[0][0]+h/2)]
