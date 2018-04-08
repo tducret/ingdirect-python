@@ -61,21 +61,16 @@ class Client(object):
     
     def _login(self, num_client, date_naissance):
         """ Permet de se connecter à ING Direct """
-        
-        try :
-            post_data_dict = '{"cif":"%s","birthDate":"%s","keyPadSize":{"width":%s,"height":%s}}' % (num_client, date_naissance, _TAILLE_KEYPAD_W, _TAILLE_KEYPAD_H)                  
-            #print("post_data_dict login : %s" % (post_data_dict))
-            #print("url login : %s" % (_URL_LOGIN))
-            #retour_login = {} 
-            retour_login = json.loads(self._post(url=_URL_LOGIN, post_data=post_data_dict)) # On convertit la chaine json en un objet dict
-            self.url_keypad = retour_login.get('keyPadUrl')
-            self.pin_positions = retour_login.get('pinPositions')
-            self.dernier_login = retour_login.get('lastLogin')
-            self.regie_id = retour_login.get('regieId')
-            
-        except:
-            retour_login = {}
-            raise
+
+        post_data_dict = '{"cif":"%s","birthDate":"%s","keyPadSize":{"width":%s,"height":%s}}' % (num_client, date_naissance, _TAILLE_KEYPAD_W, _TAILLE_KEYPAD_H)                  
+        #print("post_data_dict login : %s" % (post_data_dict))
+        #print("url login : %s" % (_URL_LOGIN))
+        #retour_login = {} 
+        retour_login = json.loads(self._post(url=_URL_LOGIN, post_data=post_data_dict)) # On convertit la chaine json en un objet dict
+        self.url_keypad = retour_login.get('keyPadUrl')
+        self.pin_positions = retour_login.get('pinPositions')
+        self.dernier_login = retour_login.get('lastLogin')
+        self.regie_id = retour_login.get('regieId')
         
         return retour_login
     
@@ -92,17 +87,14 @@ class Client(object):
     def _code_a_saisir(self, code_complet):
         """ Renvoie les digits à saisir
         (ex : si le code et 876921, et que les pins 1,3,4 sont à saisir, la fonction renvoie [8,6,9]) """
-        try:
-            retour_code = []
-            #print("self.pin_positions : %s" % self.pin_positions)
-            #print("code_complet : %s" % code_complet)
-            for i in range(0,3):
-                retour_code.append(int(code_complet[int(self.pin_positions[i])-1]))
-                #print("retour_code[i] : %s" % (retour_code[i]))
-            self.code_a_saisir = retour_code
-        except:
-            retour_code = []
-            raise
+
+        retour_code = []
+        #print("self.pin_positions : %s" % self.pin_positions)
+        #print("code_complet : %s" % code_complet)
+        for i in range(0,3):
+            retour_code.append(int(code_complet[int(self.pin_positions[i])-1]))
+            #print("retour_code[i] : %s" % (retour_code[i]))
+        self.code_a_saisir = retour_code
             
         return retour_code
         
@@ -146,64 +138,48 @@ class Client(object):
     
     def _saisie_code(self):
         """ Envoyer la requête de saisie du code """
-        try :
-            post_data_dict = '{"clickPositions": %s}' % (self.liste_coord_chiffres)              
-            #print("post_data_dict saisie_code : %s" % (post_data_dict))
-            #print("url saisie_code : %s" % (_URL_SAISIE_CODE))
-            r = self._post_brut(url=_URL_SAISIE_CODE, post_data=post_data_dict)
-            retour_saisie_code = json.loads(r.text)
-            self.prenom = retour_saisie_code.get('firstName')
-            self.nom = retour_saisie_code.get('lastName')
-            self.titre = retour_saisie_code.get('title')
-            self.headers['ingdf-auth-token'] = r.headers.get('ingdf-auth-token')
-            
-        except:
-            retour_saisie_code = {}
-            raise
+
+        post_data_dict = '{"clickPositions": %s}' % (self.liste_coord_chiffres)              
+        #print("post_data_dict saisie_code : %s" % (post_data_dict))
+        #print("url saisie_code : %s" % (_URL_SAISIE_CODE))
+        r = self._post_brut(url=_URL_SAISIE_CODE, post_data=post_data_dict)
+        retour_saisie_code = json.loads(r.text)
+        self.prenom = retour_saisie_code.get('firstName')
+        self.nom = retour_saisie_code.get('lastName')
+        self.titre = retour_saisie_code.get('title')
+        self.headers['ingdf-auth-token'] = r.headers.get('ingdf-auth-token')
         
         return retour_saisie_code
     
     def _infos_client(self):
         """ Récupérer les informations client """
-        try :                        
-            #print("url _infos_client : %s" % (_URL_INFOS_CLIENT))
-            r = self._get(url=_URL_INFOS_CLIENT)
-            #print("retour brut infos_client : %s" % r)
-            retour_infos_client = json.loads(r)
-            self.infos_client_json = retour_infos_client
-            
-        except:
-            retour_infos_client = {}
-            raise
-        
+                      
+        #print("url _infos_client : %s" % (_URL_INFOS_CLIENT))
+        r = self._get(url=_URL_INFOS_CLIENT)
+        #print("retour brut infos_client : %s" % r)
+        retour_infos_client = json.loads(r)
+        self.infos_client_json = retour_infos_client
+
         return retour_infos_client
 
     def _synthese_comptes(self):
         """ Récupérer la synthèse des comptes """
-        try :                        
-            #print("url _synthese_comptes : %s" % (_URL_SYNTHESE_COMPTES))
-            r = self._get(url=_URL_SYNTHESE_COMPTES)
-            #print("retour brut _synthese_comptes : %s" % r)
-            retour_synthese_comptes = json.loads(r)
-            self.synthese_comptes_json = retour_synthese_comptes
-            
-        except:
-            retour_synthese_comptes = {}
-            raise
+                      
+        #print("url _synthese_comptes : %s" % (_URL_SYNTHESE_COMPTES))
+        r = self._get(url=_URL_SYNTHESE_COMPTES)
+        #print("retour brut _synthese_comptes : %s" % r)
+        retour_synthese_comptes = json.loads(r)
+        self.synthese_comptes_json = retour_synthese_comptes
         
         return retour_synthese_comptes
     
     def _logout(self):
         """ Se déconnecter """
-        try :                        
-            #print("url _logout : %s" % (_URL_LOGOUT))
-            retour_logout = self._post(url=_URL_LOGOUT, post_data="")
-            #print("retour brut _logout : %s" % retour_logout)
-            
-        except:
-            retour_logout = {}
-            raise
-        
+                      
+        #print("url _logout : %s" % (_URL_LOGOUT))
+        retour_logout = self._post(url=_URL_LOGOUT, post_data="")
+        #print("retour brut _logout : %s" % retour_logout)
+
         return retour_logout
         
         
