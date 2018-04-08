@@ -4,11 +4,12 @@ from pip.req import parse_requirements
 
 # Basé sur http://peterdowns.com/posts/first-time-with-pypi.html
 
-_VERSION = '0.0.1'
+_VERSION = '0.0.2'  # En cohérence avec __init__.py
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
 _MOTS_CLES=['api', 'banque', 'ING', 'ingdirect', 'comptes']
+_PACKAGE_DATA = ['images_chiffres_keypad/*.png'] # A supprimer ici et package_data dans setup() si aucun fichier (autre que .py) n'est utilisé par le package
 
 
 install_reqs = parse_requirements('requirements.txt', session='hack')
@@ -17,6 +18,7 @@ requirements = [str(ir.req) for ir in install_reqs]
 setup(
   name = _NOM_PACKAGE,
   packages = [_NOM_PACKAGE],
+  package_data = {_NOM_PACKAGE: _PACKAGE_DATA,},
   version = _VERSION,
   license='MIT',
   platforms='Posix; MacOS X',

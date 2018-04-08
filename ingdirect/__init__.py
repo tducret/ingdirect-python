@@ -3,7 +3,7 @@ r"""La banque ING Direct <https://www.ingdirect.fr/> propose de gérer ses compt
 :mod:`ingdirect` permet la consultation en Python ou par ligne de commande.
 """
 
-__version__ = '0.0.1'
+__version__ = '0.0.2' # En cohérence avec setup.py
 
 from builtins import object
 from ingdirect.client import Client
