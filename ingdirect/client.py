@@ -5,7 +5,6 @@ Fonctionnalité permettant de faire les requêtes HTTP vers ING Direct <https://
 
 import requests
 from urllib.parse import urljoin
-import traceback # Analyse traces exception
 import shutil
 import json
 import cv2 as cv
@@ -18,7 +17,6 @@ _URL_SAISIE_CODE=urljoin(_URL_BASE,"login/step2")
 _URL_INFOS_CLIENT=urljoin(_URL_BASE,"customer/info")
 _URL_SYNTHESE_COMPTES=urljoin(_URL_BASE,"accounts")
 _URL_LOGOUT=urljoin(_URL_BASE,"logout")
-_DEFAULT_BEAUTIFULSOUP_PARSER="html.parser"
 _TAILLE_KEYPAD_W="680"
 _TAILLE_KEYPAD_H="272"
 _REPERTOIRE_SCRIPT=os.path.dirname(os.path.realpath(__file__))
@@ -38,32 +36,29 @@ class Client(object):
                    'Ingdf-Originating-Device': 'Android',
                    'Content-Type': 'application/json;charset=UTF-8',}
     
-    def _get_brut(self, url):
+    def _get(self, url):
+        """ Requête GET avec les bons headers """
         return self.session.get(url, headers=self.headers)
     
-    def _get(self, url):
-        return self._get_brut(url).text
-    
     def _get_file(self, url, path):
-        """ Télécharge un fichier """
-        r = self.session.get(url, stream=True)
+        """ Télécharge un fichier dans le chemin spécifié (incluant son nom de fichier) avec les bons headers """
+        r = self.session.get(url, headers=self.headers, stream=True)
         if r.status_code == 200:
             with open(path, 'wb') as f:
                 r.raw.decode_content = True
                 shutil.copyfileobj(r.raw, f)
         return r
     
-    def _post_brut(self, url, post_data):
-        return self.session.post(url, headers=self.headers, data=post_data)
-        
     def _post(self, url, post_data):
-        return self._post_brut(url, post_data).text
+        """ Requête POST avec les bons headers """
+        return self.session.post(url, headers=self.headers, data=post_data)
     
     def _login(self, num_client, date_naissance):
         """ Permet de se connecter à ING Direct """
 
         post_data_dict = '{"cif":"%s","birthDate":"%s","keyPadSize":{"width":%s,"height":%s}}' % (num_client, date_naissance, _TAILLE_KEYPAD_W, _TAILLE_KEYPAD_H)                  
-        retour_login = json.loads(self._post(url=_URL_LOGIN, post_data=post_data_dict)) # On convertit la chaine json en un objet dict
+        r = self._post(url=_URL_LOGIN, post_data=post_data_dict)
+        retour_login = json.loads(r.text) # On convertit la chaine json en un objet dict
         self.url_keypad = retour_login.get('keyPadUrl')
         self.pin_positions = retour_login.get('pinPositions')
         self.dernier_login = retour_login.get('lastLogin')
@@ -125,7 +120,7 @@ class Client(object):
         """ Envoyer la requête de saisie du code """
 
         post_data_dict = '{"clickPositions": %s}' % (self.liste_coord_chiffres)              
-        r = self._post_brut(url=_URL_SAISIE_CODE, post_data=post_data_dict)
+        r = self._post(url=_URL_SAISIE_CODE, post_data=post_data_dict)
         retour_saisie_code = json.loads(r.text)
         self.prenom = retour_saisie_code.get('firstName')
         self.nom = retour_saisie_code.get('lastName')
@@ -138,7 +133,7 @@ class Client(object):
         """ Récupérer les informations client """
                       
         r = self._get(url=_URL_INFOS_CLIENT)
-        retour_infos_client = json.loads(r)
+        retour_infos_client = json.loads(r.text)
         self.infos_client_json = retour_infos_client
 
         return retour_infos_client
@@ -147,7 +142,7 @@ class Client(object):
         """ Récupérer la synthèse des comptes """
                       
         r = self._get(url=_URL_SYNTHESE_COMPTES)
-        retour_synthese_comptes = json.loads(r)
+        retour_synthese_comptes = json.loads(r.text)
         self.synthese_comptes_json = retour_synthese_comptes
         
         return retour_synthese_comptes
@@ -155,7 +150,8 @@ class Client(object):
     def _logout(self):
         """ Se déconnecter """
 
-        retour_logout = self._post(url=_URL_LOGOUT, post_data="")
+        r = self._post(url=_URL_LOGOUT, post_data="")
+        retour_logout = r.text
 
         return retour_logout
         
