@@ -3,7 +3,7 @@ r"""La banque ING Direct <https://www.ingdirect.fr/> propose de gérer ses compt
 :mod:`ingdirect` permet la consultation en Python ou par ligne de commande.
 """
 
-__version__ = '0.0.2' # En cohérence avec setup.py
+__version__ = '0.0.3' # En cohérence avec setup.py
 
 from builtins import object
 from ingdirect.client import Client
@@ -26,6 +26,12 @@ class Synthese_comptes(object):
         
     def __getitem__(self, key): # Méthode pour interroger l'objet comme une liste (ex : liste_comptes[1])
         return Compte(self.liste_comptes[key])
+    
+    def csv(self):
+        chaine_csv="Nom du compte;Solde"
+        for compte in self:
+            chaine_csv+=("\n%s %s;%s€" % (compte.type, compte.label, str(compte.solde).replace('.',','))) # On remplace le séparateur '.' par ',' pour Excel français
+        return chaine_csv
     
     def __repr__(self): # Méthode d'affichage de l'objet
         return ("Solde total des comptes : %.2f€" % self.solde_total)
