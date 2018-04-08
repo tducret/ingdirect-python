@@ -21,6 +21,7 @@ setup(
   license='MIT',
   platforms='Posix; MacOS X',
   description = _DESCRIPTION,
+  long_description = _DESCRIPTION,
   author = 'Thibault Ducret',
   author_email = 'thibault.ducret@gmail.com',
   url = _URL_GITHUB,
@@ -32,3 +33,18 @@ setup(
   python_requires='>=3',
   tests_require=['pytest'],
 )
+
+# Pour faire une nouvelle version sur pypi
+# S'assurer que tout a été commité et pushé via git status (sinon git commit --am "Commentaire" et git push)
+# git tag VERSION -m "Commentaire"
+# git push --tags 
+
+# Test d'upload du package sur le repository de test pypi
+# python3 setup.py sdist upload -r pypitest
+
+# Test d'upload du package sur le repository de test pypi
+# python3 setup.py sdist upload -r pypi
+
+# En cas de soucis, pour effacer un tag
+# git push --delete origin VERSION
+# git tag -d VERSION
