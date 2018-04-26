@@ -8,39 +8,46 @@ _VERSION = '0.0.3'  # En cohérence avec __init__.py
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
-_MOTS_CLES=['api', 'banque', 'ING', 'ingdirect', 'comptes']
-_PACKAGE_DATA = ['images_chiffres_keypad/*.png'] # A supprimer ici + 'package_data' dans setup() si aucun fichier (autre que .py) n'est utilisé par le package
-_SCRIPTS = ['bin/ing'] # A supprimer ici + 'scripts' dans setup() si aucune commande exécutable n'est utilisée par le package
+_MOTS_CLES = ['api', 'banque', 'ING', 'ingdirect', 'comptes']
+_PACKAGE_DATA = ['images_chiffres_keypad/*.png']
+# A supprimer ici + 'package_data' dans setup()
+# si aucun fichier (autre que .py) n'est utilisé par le package
+_SCRIPTS = ['bin/ing']
+# A supprimer ici + 'scripts' dans setup()
+# si aucune commande exécutable n'est utilisée par le package
 
 install_reqs = parse_requirements('requirements.txt', session='hack')
 requirements = [str(ir.req) for ir in install_reqs]
 
 setup(
-  name = _NOM_PACKAGE,
-  packages = [_NOM_PACKAGE],
-  package_data = {_NOM_PACKAGE: _PACKAGE_DATA,},
+  name=_NOM_PACKAGE,
+  packages=[_NOM_PACKAGE],
+  package_data={_NOM_PACKAGE: _PACKAGE_DATA, },
   scripts=_SCRIPTS,
-  version = _VERSION,
+  version=_VERSION,
   license='MIT',
   platforms='Posix; MacOS X',
-  description = _DESCRIPTION,
-  long_description = _DESCRIPTION,
-  author = 'Thibault Ducret',
-  author_email = 'thibault.ducret@gmail.com',
-  url = _URL_GITHUB,
-  download_url = '%s/tarball/%s' % (_URL_GITHUB, _VERSION),
-  keywords = _MOTS_CLES,
+  description=_DESCRIPTION,
+  long_description=_DESCRIPTION,
+  author='Thibault Ducret',
+  author_email='thibault.ducret@gmail.com',
+  url=_URL_GITHUB,
+  download_url='%s/tarball/%s' % (_URL_GITHUB, _VERSION),
+  keywords=_MOTS_CLES,
   setup_requires=requirements,
   install_requires=requirements,
-  classifiers = ['Programming Language :: Python :: 3'],
+  classifiers=['Programming Language :: Python :: 3'],
   python_requires='>=3',
   tests_require=['pytest'],
 )
 
+# ------------------------------------------
 # Pour faire une nouvelle version sur pypi
-# S'assurer que tout a été commité et pushé via git status (sinon git commit --am "Commentaire" et git push)
+# ------------------------------------------
+# S'assurer que tout a été commité et pushé via git status
+# (sinon git commit --am "Commentaire" et git push)
 # git tag VERSION -m "Commentaire"
-# git push --tags 
+# git push --tags
 
 # Test de génération du package sur le repository de test pypi
 # python3 setup.py sdist register -r pypitest
