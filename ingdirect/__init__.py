@@ -4,7 +4,7 @@ ses comptes en ligne via son site web ou ses applications mobiles.
 :mod:`ingdirect` permet la consultation en Python ou par ligne de commande.
 """
 
-__version__ = '0.0.3'  # En cohérence avec setup.py
+__version__ = '0.0.4'  # En cohérence avec setup.py
 
 from builtins import object
 from ingdirect.client import Client
