@@ -3,12 +3,10 @@ r"""La banque ING Direct <https://www.ingdirect.fr/> propose de gérer
 ses comptes en ligne via son site web ou ses applications mobiles.
 :mod:`ingdirect` permet la consultation en Python ou par ligne de commande.
 """
-
-__version__ = '0.0.4'  # En cohérence avec setup.py
-
 from builtins import object
 from ingdirect.client import Client
 
+__version__ = '0.0.4'  # En cohérence avec setup.py
 # Permet à Sphinx de récupérer ces éléments pour la documentation
 __all__ = ['Client']
 
