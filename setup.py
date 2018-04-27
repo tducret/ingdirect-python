@@ -4,7 +4,7 @@ from pip.req import parse_requirements
 
 # Basé sur http://peterdowns.com/posts/first-time-with-pypi.html
 
-_VERSION = '0.0.4'  # En cohérence avec __init__.py
+_VERSION = '0.0.5'  # En cohérence avec __init__.py
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
