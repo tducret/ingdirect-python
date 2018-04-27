@@ -30,7 +30,8 @@ import ingdirect as ing
     envvar="ING_CODE",
     type=str,
     help='votre mot de passe ING Direct (ex : 123456)',
-    prompt='votre mot de passe ING Direct (ex : 123456)'
+    prompt='votre mot de passe ING Direct (ex : 123456)',
+    hide_input=True
 )
 def main(numero_client, date_naissance, code):
     """ Récupère la synthèse des comptes bancaires ING Direct """
