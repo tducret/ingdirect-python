@@ -12,14 +12,6 @@ import ingdirect as ing
 
 @click.command()
 @click.option(
-    '--version', '-v',
-    help='numéro de version'
-)
-def afficher_version(version):
-    print(ing.__version__)
-
-
-@click.option(
     '--numero-client', '-n',
     envvar="ING_NUM_CLIENT",
     type=str,
@@ -40,6 +32,10 @@ def afficher_version(version):
     help='votre mot de passe ING Direct (ex : 123456)',
     prompt='votre mot de passe ING Direct (ex : 123456)',
     hide_input=True
+)
+@click.version_option(
+    version=ing.__version__,
+    message='%(prog)s, basé sur le module ingdirect version %(version)s'
 )
 def main(numero_client, date_naissance, code):
     """ Récupère la synthèse des comptes bancaires ING Direct """
