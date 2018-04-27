@@ -4,10 +4,10 @@ try:  # Pour pip >= 10
     from pip._internal.req import parse_requirements
 except ImportError:  # Pour pip <= 9.0.3
     from pip.req import parse_requirements
-from ingdirect import __version__
 
 # Basé sur http://peterdowns.com/posts/first-time-with-pypi.html
 
+__version__ = '0.0.7'  # En cohérence avec __init.py__
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
