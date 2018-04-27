@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
 from pip.req import parse_requirements
+from ingdirect import __version__
 
 # Basé sur http://peterdowns.com/posts/first-time-with-pypi.html
 
-_VERSION = '0.0.5'  # En cohérence avec __init__.py
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
@@ -24,7 +24,7 @@ setup(
   packages=[_NOM_PACKAGE],
   package_data={_NOM_PACKAGE: _PACKAGE_DATA, },
   scripts=_SCRIPTS,
-  version=_VERSION,
+  version=__version__,
   license='MIT',
   platforms='Posix; MacOS X',
   description=_DESCRIPTION,
@@ -32,7 +32,7 @@ setup(
   author='Thibault Ducret',
   author_email='thibault.ducret@gmail.com',
   url=_URL_GITHUB,
-  download_url='%s/tarball/%s' % (_URL_GITHUB, _VERSION),
+  download_url='%s/tarball/%s' % (_URL_GITHUB, __version__),
   keywords=_MOTS_CLES,
   setup_requires=requirements,
   install_requires=requirements,

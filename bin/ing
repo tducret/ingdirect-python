@@ -12,6 +12,14 @@ import ingdirect as ing
 
 @click.command()
 @click.option(
+    '--version', '-v',
+    help='numéro de version'
+)
+def afficher_version(version):
+    print(ing.__version__)
+
+
+@click.option(
     '--numero-client', '-n',
     envvar="ING_NUM_CLIENT",
     type=str,
