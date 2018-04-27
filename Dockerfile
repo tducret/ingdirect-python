@@ -1,7 +1,7 @@
 FROM python:3
 
 # L'image Docker peut être construite via :
-# docker build -t ingdirect .
+# docker build --no-cache -t ingdirect .
 
 # Un container peut être instancié via :
 # docker run -it --rm --name ing ingdirect
