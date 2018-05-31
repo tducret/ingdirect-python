@@ -58,7 +58,7 @@ setup(
 # Test d'upload du package sur le repository de test pypi
 # python3 setup.py sdist upload -r pypitest
 
-# Test d'upload du package sur le repository de test pypi
+# Upload du package sur le repository officiel de pypi
 # python3 setup.py sdist upload -r pypi
 
 # En cas de soucis, pour effacer un tag
