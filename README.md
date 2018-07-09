@@ -26,9 +26,9 @@ ing
 Après saisie des paramètres de connexion, la commande renverra le solde de chaque compte au format csv :
 
 ```csv
-Nom du compte;Solde
-Compte Courant XXXX 1234;1500,5€
-Livret A XXXX 3456;10000,0€
+Nom du compte;Solde;Devise
+Compte Courant XXXX 1234;1500,50;EUR
+Livret A XXXX 3456;10000,00;EUR
 ```
 
 Plus d'informations sur la commande, via :

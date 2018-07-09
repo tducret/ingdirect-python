@@ -6,7 +6,7 @@ ses comptes en ligne via son site web ou ses applications mobiles.
 from builtins import object
 from ingdirect.client import Client
 
-__version__ = '0.0.8'  # En cohérence avec setup.py
+__version__ = '0.0.9'  # En cohérence avec setup.py
 # Permet à Sphinx de récupérer ces éléments pour la documentation
 __all__ = ['Client']
 
@@ -29,13 +29,14 @@ class Synthese_comptes(object):
         return Compte(self.liste_comptes[key])
 
     def csv(self):
-        chaine_csv = "Nom du compte;Solde"
+        chaine_csv = "Nom du compte;Solde;Devise"
         for compte in self:
             chaine_csv += (
-                "\n%s %s;%s€" %
+                "\n%s %s;%.2f;EUR" %
                 (
                     compte.type, compte.label,
-                    str(compte.solde).replace('.', ',')))
+                    compte.solde))
+        chaine_csv = chaine_csv.replace('.', ',')
 # On remplace le séparateur '.' dans compte.solde par ',' pour Excel français
         return chaine_csv
 

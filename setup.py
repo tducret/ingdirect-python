@@ -7,7 +7,7 @@ except ImportError:  # Pour pip <= 9.0.3
 
 # Basé sur http://peterdowns.com/posts/first-time-with-pypi.html
 
-__version__ = '0.0.8'  # En cohérence avec __init.py__
+__version__ = '0.0.9'  # En cohérence avec __init.py__
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
