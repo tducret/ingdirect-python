@@ -100,7 +100,7 @@ ENV/
 # mypy
 .mypy_cache/
 
-# mypy
+# pytest
 .pytest_cache/
 
 # custom
