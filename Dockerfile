@@ -6,6 +6,6 @@ FROM python:3
 # Un container peut être instancié via :
 # docker run -it --rm --name ing ingdirect
 
-RUN pip3 install -U ingdirect
+RUN pip3 install -U --no-cache-dir ingdirect
 
-CMD [ "ing" ]
+ENTRYPOINT [ "ing.py" ]

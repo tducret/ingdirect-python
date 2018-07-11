@@ -16,14 +16,16 @@ import ingdirect as ing
     envvar="ING_NUM_CLIENT",
     type=str,
     help='votre numéro client ING Direct',
-    prompt='votre numéro client ING Direct'
+    prompt='votre numéro client ING Direct',
+    required=True,
 )
 @click.option(
     '--date-naissance', '-d',
     envvar="ING_DATE_NAISSANCE",
     type=str,
     help='votre date de naissance au format JJMMAAAA (ex: 30121982)',
-    prompt='votre date de naissance au format JJMMAAAA (ex: 30121982)'
+    prompt='votre date de naissance au format JJMMAAAA (ex: 30121982)',
+    required=True,
 )
 @click.option(
     '--code', '-c',
@@ -31,7 +33,8 @@ import ingdirect as ing
     type=str,
     help='votre mot de passe ING Direct (ex : 123456)',
     prompt='votre mot de passe ING Direct (ex : 123456)',
-    hide_input=True
+    hide_input=True,
+    required=True,
 )
 @click.version_option(
     version=ing.__version__,
