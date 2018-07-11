@@ -1,5 +1,10 @@
 # ingdirect
 
+[![Travis](https://img.shields.io/travis/tducret/ingdirect-python.svg)](https://travis-ci.org/tducret/ingdirect-python)
+[![Coveralls github](https://img.shields.io/coveralls/github/tducret/ingdirect-python.svg)](https://coveralls.io/github/tducret/ingdirect-python)
+[![PyPI](https://img.shields.io/pypi/v/ingdirect.svg)](https://pypi.org/project/ingdirect/)
+![License](https://img.shields.io/github/license/tducret/ingdirect-python.svg)
+
 # Description
 
 Ce package permet de consulter très simplement ses comptes bancaires [ING Direct](https://www.ingdirect.fr/).
