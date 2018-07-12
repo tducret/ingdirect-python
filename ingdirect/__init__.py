@@ -6,7 +6,7 @@ ses comptes en ligne via son site web ou ses applications mobiles.
 from builtins import object
 from ingdirect.client import Client
 
-__version__ = '0.0.10'  # En cohérence avec setup.py
+__version__ = '0.0.11'  # En cohérence avec setup.py
 # Permet à Sphinx de récupérer ces éléments pour la documentation
 __all__ = ['Client']
 
