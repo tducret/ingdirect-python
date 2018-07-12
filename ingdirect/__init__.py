@@ -50,13 +50,18 @@ class Compte(object):
     def __init__(self, compte):
         self.dict = compte
         self.solde = compte.get('ledgerBalance')
-        self.label = compte.get('label')
-        self.type = compte.get('type').get('label')
+        self.label = correction_encodage(compte.get('label'))
+        self.type = correction_encodage(compte.get('type').get('label'))
         self.uid = compte.get('uid')
 
     def __repr__(self):
         """ Méthode d'affichage de l'objet """
         return ("%s %s : %.2f€" % (self.type, self.label, self.solde))
+
+
+def correction_encodage(chaine_mal_encodee):
+    """ Fonction pour corriger l'encodage d'une chaine reçue """
+    return chaine_mal_encodee.encode("latin1").decode("utf-8")
 
 
 def synthese_comptes(num_client, date_naissance, code):
