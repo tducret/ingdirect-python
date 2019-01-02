@@ -159,7 +159,10 @@ class Client(object):
         """ Récupérer les informations client """
 
         r = self._get(url=_URL_INFOS_CLIENT)
-        retour_infos_client = json.loads(r.text)
+        if r.status_code == 200:
+            retour_infos_client = json.loads(r.text)
+        else:
+            retour_infos_client = {}
         self.infos_client_json = retour_infos_client
 
         return retour_infos_client
