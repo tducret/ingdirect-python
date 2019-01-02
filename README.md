@@ -3,6 +3,7 @@
 [![Travis](https://img.shields.io/travis/tducret/ingdirect-python.svg)](https://travis-ci.org/tducret/ingdirect-python)
 [![Coveralls github](https://img.shields.io/coveralls/github/tducret/ingdirect-python.svg)](https://coveralls.io/github/tducret/ingdirect-python)
 [![PyPI](https://img.shields.io/pypi/v/ingdirect.svg)](https://pypi.org/project/ingdirect/)
+[![Docker Image size](https://img.shields.io/microbadger/image-size/thibdct/ing.svg)](https://hub.docker.com/r/thibdct/ing/)
 ![License](https://img.shields.io/github/license/tducret/ingdirect-python.svg)
 
 # Description
@@ -10,6 +11,8 @@
 Ce package permet de consulter très simplement ses comptes bancaires [ING Direct](https://www.ingdirect.fr/).
 
 J'ai écrit un article sur la création de ce module [sur mon blog](https://www.tducret.com/scraping/2018/05/24/reverse-engineering-de-l-application-mobile-ing-direct.html)
+
+🎁 Vous pouvez maintenant utiliser la commande via [son image Docker](#docker)
 
 # Pré-requis
 
@@ -98,3 +101,42 @@ solde               | Solde du compte
 label               | Nom du compte (ex: "XXXX 1234")
 type                | Type du compte (ex: "Compte Courant")
 uid                 | Identifiant unique du compte
+
+# Docker
+
+Vous pouvez utiliser l'outil `ing` avec son [image Docker](https://hub.docker.com/r/thibdct/ing/)
+
+Pour cela, exécutez :
+
+`docker run -it --rm thibdct/ing`
+
+## 🤘 Encore plus facile 🤘
+
+J'ai créé un script bash pour créer le container Docker encore plus facilement.
+
+Installation :
+
+```bash
+curl -s https://raw.githubusercontent.com/tducret/ingdirect-python/master/ing.sh \
+> /usr/local/bin/ing && chmod +x /usr/local/bin/ing
+```
+*Vous pouvez remplacer `/usr/local/bin` par un autre répertoire connu dans la variable d'environnement $PATH*
+
+On vérifie que cela fonctionne :
+
+```bash
+ing --help
+ing -n NUMERO_CLIENT -d DATE_NAISSANCE -c CODE_SECRET
+```
+
+Vous pouvez mettre à jour l'outil avec :
+
+```bash
+ing --upgrade
+```
+
+et le désinstaller avec :
+
+```bash
+ing --uninstall
+```
