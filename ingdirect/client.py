@@ -152,7 +152,6 @@ class Client(object):
 
         post_data_dict = '{"clickPositions": %s}' % (self.liste_coord_chiffres)
         r = self._post(url=_URL_SAISIE_CODE, post_data=post_data_dict)
-        print(r.status_code)
         retour_saisie_code = json.loads(r.text)
         self.prenom = retour_saisie_code.get('firstName')
         self.nom = retour_saisie_code.get('lastName')
