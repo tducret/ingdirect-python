@@ -43,9 +43,14 @@ class Client(object):
                     'Content-Type': 'application/json;charset=UTF-8',
                     }
 
-    def _get(self, url):
+    def _get(self, url, expected_status_code=200):
         """ Requête GET avec les bons headers """
-        return self.session.get(url, headers=self.headers)
+        ret = self.session.get(url=url, headers=self.headers)
+        if (ret.status_code != expected_status_code):
+            raise ConnectionError(
+                'Status code {status} for url {url}\n{content}'.format(
+                    status=ret.status_code, url=url, content=ret.text))
+        return ret
 
     def _get_file(self, url, path):
         """ Télécharge un fichier dans le chemin spécifié
@@ -147,6 +152,7 @@ class Client(object):
 
         post_data_dict = '{"clickPositions": %s}' % (self.liste_coord_chiffres)
         r = self._post(url=_URL_SAISIE_CODE, post_data=post_data_dict)
+        print(r.status_code)
         retour_saisie_code = json.loads(r.text)
         self.prenom = retour_saisie_code.get('firstName')
         self.nom = retour_saisie_code.get('lastName')
@@ -159,10 +165,7 @@ class Client(object):
         """ Récupérer les informations client """
 
         r = self._get(url=_URL_INFOS_CLIENT)
-        if r.status_code == 200:
-            retour_infos_client = json.loads(r.text)
-        else:
-            retour_infos_client = {}
+        retour_infos_client = json.loads(r.text)
         self.infos_client_json = retour_infos_client
 
         return retour_infos_client
