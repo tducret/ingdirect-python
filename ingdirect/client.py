@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Fonctionnalité permettant de faire les requêtes HTTP
-vers ING Direct <https://www.ingdirect.fr>
+vers ING Direct <https://www.ing.fr>
 """
 
 import requests
@@ -12,7 +12,7 @@ import cv2 as cv
 import numpy as np
 import os
 
-_URL_BASE = "https://m.ingdirect.fr/api-v1/"
+_URL_BASE = "https://m.ing.fr/api-v1/"
 _URL_LOGIN = urljoin(_URL_BASE, "login/step1")
 _URL_SAISIE_CODE = urljoin(_URL_BASE, "login/step2")
 _URL_INFOS_CLIENT = urljoin(_URL_BASE, "customer/info")
@@ -26,14 +26,14 @@ _FICHIER_KEYPAD = 'keypad.png'
 
 
 class Client(object):
-    """Fait les requêtes avec le serveur ingdirect.fr"""
+    """Fait les requêtes avec le serveur ing.fr"""
 
     def __init__(self):
         """ Initialisation du client """
         self.session = requests.session()
         self.headers = {
-                    'Origin': 'https://m.ingdirect.fr',
-                    'Host': 'm.ingdirect.fr',
+                    'Origin': 'https://m.ing.fr',
+                    'Host': 'm.ing.fr',
                     'Accept': 'Accept: application/json,text/plain, */*',
                     'User-Agent': 'Mozilla/5.0 (Linux; Android 7.0; \
                         SM-A520F Build/NRD90M; wv) AppleWebKit/537.36 \

@@ -8,7 +8,7 @@
 
 # Description
 
-Ce package permet de consulter très simplement ses comptes bancaires [ING Direct](https://www.ingdirect.fr/).
+Ce package permet de consulter très simplement ses comptes bancaires [ING Direct](https://www.ing.fr/).
 
 J'ai écrit un article sur la création de ce module [sur mon blog](https://www.tducret.com/scraping/2018/05/24/reverse-engineering-de-l-application-mobile-ing-direct.html)
 

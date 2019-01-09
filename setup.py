@@ -7,7 +7,7 @@ except ImportError:  # Pour pip <= 9.0.3
 
 # Basé sur http://peterdowns.com/posts/first-time-with-pypi.html
 
-__version__ = '0.0.12'  # En cohérence avec __init.py__
+__version__ = '0.0.13'  # En cohérence avec __init.py__
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
@@ -49,7 +49,7 @@ setup(
 # ------------------------------------------
 # S'assurer que tout a été commité et pushé via git status
 # (sinon git commit --am "Commentaire" et git push)
-# git tag 0.0.12 -m "Utilisation de opencv-python-headless"
+# git tag 0.0.13 -m "Mise à jour suite au passage de ingdirect.fr à ing.fr"
 # git push --tags
 
 # Test de génération du package sur le repository de test pypi
