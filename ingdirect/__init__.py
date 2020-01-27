@@ -6,7 +6,7 @@ ses comptes en ligne via son site web ou ses applications mobiles.
 from builtins import object
 from ingdirect.client import Client
 
-__version__ = '0.0.13'  # En cohérence avec setup.py
+__version__ = '0.1.0'  # En cohérence avec setup.py
 # Permet à Sphinx de récupérer ces éléments pour la documentation
 __all__ = ['Client']
 
@@ -68,6 +68,7 @@ def synthese_comptes(num_client, date_naissance, code):
     """ Obtenir la synthèse des comptes sous forme de dictionnaire """
     ing = Client()
     ing._login(num_client=num_client, date_naissance=date_naissance)
+    ing._recuperer_url_keypad()
     ing._recuperer_keypad()
     ing._code_a_saisir(code_complet=code)
     ing._recuperer_coord_chiffres()

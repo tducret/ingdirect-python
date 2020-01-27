@@ -12,14 +12,15 @@ import cv2 as cv
 import numpy as np
 import os
 
-_URL_BASE = "https://m.ing.fr/api-v1/"
-_URL_LOGIN = urljoin(_URL_BASE, "login/step1")
-_URL_SAISIE_CODE = urljoin(_URL_BASE, "login/step2")
+_URL_BASE = "https://m.ing.fr/secure/api-v1/"
+_URL_LOGIN = urljoin(_URL_BASE, "login/cif")
+_URL_KEYPAD = urljoin(_URL_BASE, "login/keypad")
+_URL_SAISIE_CODE = urljoin(_URL_BASE, "login/sca/pin")
 _URL_INFOS_CLIENT = urljoin(_URL_BASE, "customer/info")
 _URL_SYNTHESE_COMPTES = urljoin(_URL_BASE, "accounts")
 _URL_LOGOUT = urljoin(_URL_BASE, "logout")
-_TAILLE_KEYPAD_W = "680"
-_TAILLE_KEYPAD_H = "272"
+_TAILLE_KEYPAD_W = 680
+_TAILLE_KEYPAD_H = 272
 _REPERTOIRE_SCRIPT = os.path.dirname(os.path.realpath(__file__))
 _REPERTOIRE_IMAGES_CHIFFRES = "images_chiffres_keypad"
 _FICHIER_KEYPAD = 'keypad.png'
@@ -64,25 +65,26 @@ class Client(object):
 
     def _post(self, url, post_data):
         """ Requête POST avec les bons headers """
-        return self.session.post(url, headers=self.headers, data=post_data)
+        ret = self.session.post(url, headers=self.headers, json=post_data)
+        return ret
 
     def _login(self, num_client, date_naissance):
         """ Permet de se connecter à ING Direct """
 
-        post_data_dict = '{"cif":"%s",\
-            "birthDate":"%s",\
-            "keyPadSize":{"width":%s,\
-            "height":%s}}' \
-            % (num_client, date_naissance, _TAILLE_KEYPAD_W, _TAILLE_KEYPAD_H)
+        post_data_dict = {"cif": num_client, "birthDate": date_naissance}
         r = self._post(url=_URL_LOGIN, post_data=post_data_dict)
-        # On convertit la chaine json en un objet dict
-        retour_login = json.loads(r.text)
-        self.url_keypad = retour_login.get('keyPadUrl')
-        self.pin_positions = retour_login.get('pinPositions')
-        self.dernier_login = retour_login.get('lastLogin')
-        self.regie_id = retour_login.get('regieId')
-
-        return retour_login
+        self.regie_id = r.json().get('regieId')
+    
+    def _recuperer_url_keypad(self):
+        post_data_dict = {
+            "keyPadSize": {
+                "width": _TAILLE_KEYPAD_W,
+                "height": _TAILLE_KEYPAD_H},
+            "mode": ""
+        }
+        r = self._post(url=_URL_KEYPAD, post_data=post_data_dict)
+        self.url_keypad = r.json().get('keyPadUrl')
+        self.pin_positions = r.json().get('pinPositions')
 
     def _recuperer_keypad(self):
         """ Télécharge l'image du clavier pour saisir le code
@@ -150,7 +152,7 @@ class Client(object):
     def _saisie_code(self):
         """ Envoyer la requête de saisie du code """
 
-        post_data_dict = '{"clickPositions": %s}' % (self.liste_coord_chiffres)
+        post_data_dict = {'clickPositions': self.liste_coord_chiffres}
         r = self._post(url=_URL_SAISIE_CODE, post_data=post_data_dict)
         retour_saisie_code = json.loads(r.text)
         self.prenom = retour_saisie_code.get('firstName')
