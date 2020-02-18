@@ -1,4 +1,4 @@
-FROM python:3.5-slim AS build-env
+FROM python:3.7-slim AS build-env
 
 # You can build the docker image with the command :
 # docker build --no-cache -t ing .
@@ -12,7 +12,7 @@ RUN apt-get update \
 && pip install -U --no-cache-dir --target /app ingdirect \
 && find /app | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
 
-FROM gcr.io/distroless/python3
+FROM gcr.io/distroless/python3-debian10
 
 COPY --from=build-env /app /app
 COPY --from=build-env /usr/lib/x86_64-linux-gnu/libgthread-2.0.a /usr/lib/x86_64-linux-gnu/libgthread-2.0.a
