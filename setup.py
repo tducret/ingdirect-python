@@ -7,7 +7,7 @@ except ImportError:  # Pour pip <= 9.0.3
 
 # Basé sur http://peterdowns.com/posts/first-time-with-pypi.html
 
-__version__ = '0.1.0'  # En cohérence avec __init.py__
+__version__ = '0.1.1'  # En cohérence avec __init.py__
 _NOM_PACKAGE = 'ingdirect'
 _URL_GITHUB = 'https://github.com/tducret/ingdirect-python'
 _DESCRIPTION = 'Package pour consulter ses comptes bancaires ING Direct'
@@ -49,7 +49,7 @@ setup(
 # ------------------------------------------
 # S'assurer que tout a été commité et pushé via git status
 # (sinon git commit --am "Commentaire" et git push)
-# export VERSION=0.1.0; git tag $VERSION -m "Mise à jour suite au changement d'API ING"; git push --tags
+# export VERSION=0.1.1; git tag $VERSION -m "Changement de casse du header Ingdf-Auth-Token"; git push --tags
 
 # Pour effacer un tag
 # git push --delete origin $VERSION; git tag -d $VERSION
