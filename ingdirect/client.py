@@ -63,9 +63,13 @@ class Client(object):
                 shutil.copyfileobj(r.raw, f)
         return r
 
-    def _post(self, url, post_data):
+    def _post(self, url, post_data, expected_status_code=200):
         """ Requête POST avec les bons headers """
         ret = self.session.post(url, headers=self.headers, json=post_data)
+        if (ret.status_code != expected_status_code):
+            raise ConnectionError(
+                'Status code {status} for url {url}\n{content}'.format(
+                    status=ret.status_code, url=url, content=ret.text))
         return ret
 
     def _login(self, num_client, date_naissance):
@@ -183,7 +187,7 @@ class Client(object):
     def _logout(self):
         """ Se déconnecter """
 
-        r = self._post(url=_URL_LOGOUT, post_data="")
+        r = self._post(url=_URL_LOGOUT, post_data="", expected_status_code=204)
         retour_logout = r.text
 
         return retour_logout
