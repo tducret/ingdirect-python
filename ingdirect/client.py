@@ -159,10 +159,7 @@ class Client(object):
         post_data_dict = {'clickPositions': self.liste_coord_chiffres}
         r = self._post(url=_URL_SAISIE_CODE, post_data=post_data_dict)
         retour_saisie_code = json.loads(r.text)
-        self.prenom = retour_saisie_code.get('firstName')
-        self.nom = retour_saisie_code.get('lastName')
-        self.titre = retour_saisie_code.get('title')
-        self.headers['ingdf-auth-token'] = r.headers.get('ingdf-auth-token')
+        self.headers['Ingdf-Auth-Token'] = r.headers.get('Ingdf-Auth-Token')
 
         return retour_saisie_code
 
